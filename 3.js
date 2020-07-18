@@ -24,7 +24,22 @@
 const get = require('fetch').fetchUrl;
 const url = 'https://lab.lectrum.io/geo/api/countries?size=2';
 
-// Решение
+// Решениеv
+
+const send  = function(uri) {
+    return new Promise((resolve, reject) => {
+        get(url, (error, meta, body) => {
+            const statusCode = meta.status;
+            if ( statusCode === 200) {
+                const {data} = JSON.parse(body);
+                resolve(data);
+            }
+            else{
+                reject(`We have error, status code: ${statusCode}`);
+            }
+        })
+    })
+}
 
 send(url)
     .then(data => {
